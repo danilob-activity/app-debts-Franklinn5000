@@ -19,10 +19,13 @@ public class TelaInicial extends AppCompatActivity {
     private DatabaseHelper mDataHelper;
     private ConstraintLayout mLayout;
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tela_inicial);
+
 
         mLayout = findViewById(R.id.layout);
 
