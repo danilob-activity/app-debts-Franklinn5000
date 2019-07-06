@@ -20,11 +20,13 @@ public class CategoryDAO {
     public CategoryDAO(SQLiteDatabase conection){
         mConnection = conection;
     }
-    public void insert(Category cat){
+    public Category insert(Category cat){
         ContentValues contentValues = new ContentValues();
         contentValues.put("tipo",cat.getType());
-        mConnection.insertOrThrow("categoria",null,contentValues);
+        long id = mConnection.insertOrThrow("categoria",null,contentValues);
         Log.d("CategoriaDAO","Inserção realizada com sucesso!");
+        cat.setId(id);
+        return cat;
 
 
     }
