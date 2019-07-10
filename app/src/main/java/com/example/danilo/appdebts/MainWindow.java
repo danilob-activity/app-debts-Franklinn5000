@@ -43,6 +43,7 @@ public class MainWindow extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent cad = new Intent(MainWindow.this,InsertDebts.class);
+                startActivity(cad);
             }
         });
 
