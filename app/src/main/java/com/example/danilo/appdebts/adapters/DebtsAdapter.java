@@ -5,6 +5,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
@@ -49,6 +50,7 @@ public class DebtsAdapter extends RecyclerView.Adapter<DebtsAdapter.ViewHolderDe
 
     //configurar os links e ações pela interface
     public class ViewHolderDebts extends RecyclerView.ViewHolder {
+
         public TextView mDescription;
         public TextView mCategoy;
         public TextView mPaymentdate;
@@ -68,6 +70,7 @@ public class DebtsAdapter extends RecyclerView.Adapter<DebtsAdapter.ViewHolderDe
             mImagePay = itemView.findViewById(R.id.ImageButtonPay);
             mImageRenew = itemView.findViewById(R.id.ImageButtonRenew);
             mImageDelete = itemView.findViewById(R.id.ImageButtonDelete);
+
 
 
 

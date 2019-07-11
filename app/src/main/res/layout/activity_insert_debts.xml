@@ -8,8 +8,8 @@
 
     <TextView
         android:id="@+id/textViewCategoria"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="79dp"
+        android:layout_height="29dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:text="Category"
@@ -82,12 +82,12 @@
         android:id="@+id/editTextDate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:ems="10"
         android:clickable="true"
         android:editable="false"
-        android:focusable="false"
+        android:ems="10"
+        android:inputType="date"
+        tools:layout_editor_absoluteX="8dp"
+        tools:layout_editor_absoluteY="0dp" />
         app:layout_constraintBottom_toBottomOf="@+id/textViewPaymentorPay"
         app:layout_constraintStart_toEndOf="@+id/textViewPaymentorPay"
         app:layout_constraintTop_toBottomOf="@+id/textViewDescription" />
