@@ -74,4 +74,19 @@ public class CategoryDAO {
         }
         return null;
     }
+
+    public Category getCategory(String name){
+        Category cat = new Category();
+        String [] params = new String[1];
+        params[0] = name;
+        Cursor result = mConnection.rawQuery(ScriptDLL.getCategoryType(),params);
+        if(result.getCount()>0){
+            result.moveToFirst();
+            cat.setId(result.getLong(result.getColumnIndexOrThrow("id")));
+            cat.setType(result.getString(result.getColumnIndexOrThrow("tipo")));
+            result.close();
+            return cat;
+        }
+        return null;
+    }
 }

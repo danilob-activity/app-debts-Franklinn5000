@@ -2,6 +2,10 @@
 <menu xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <item android:title="item" />
-    <item android:title="item" />
+    <item
+        android:id="@+id/okMenu"
+        android:title="Savar" />
+    <item
+        android:id="@+id/cancelarMenu"
+        android:title="Cancelar" />
 </menu>

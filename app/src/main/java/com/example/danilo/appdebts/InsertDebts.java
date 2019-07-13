@@ -21,6 +21,8 @@ import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.Switch;
+import android.widget.TextView;
 
 import com.example.danilo.appdebts.adapters.DebtsAdapter;
 import com.example.danilo.appdebts.classes.Category;
@@ -39,6 +41,10 @@ public class InsertDebts extends AppCompatActivity {
 
     EditText mEditTextDataPay;
     Spinner mSpinnerCategory;
+    EditText mEditTextDescription;
+    EditText mValue;
+    Switch mTopay;
+
     final Calendar myCalendar = Calendar.getInstance();
 
     //inserção no banco de dados
@@ -57,8 +63,13 @@ public class InsertDebts extends AppCompatActivity {
         getSupportActionBar().setTitle(R.string.titleInsert);
 
         mSpinnerCategory = findViewById(R.id.spinnerCategories);
-
         mEditTextDataPay = findViewById(R.id.editTextDate);
+        mEditTextDescription = findViewById(R.id.editTextDescription);
+        mValue = findViewById(R.id.Valor);
+        mTopay = findViewById(R.id.switchPay);
+
+
+
         final DatePickerDialog.OnDateSetListener date = new DatePickerDialog.OnDateSetListener() {
 
             @Override
@@ -177,11 +188,68 @@ public class InsertDebts extends AppCompatActivity {
                 finishAffinity(); //Método para matar a activity e não deixa-lá indexada na pilhagem
                 break;
             case R.id.okMenu:
-                Log.d("Item Menu","Menu: "+R.string.okMenu);
+                Debts debt = checkdata();
+                if(debt!=null){
+                    mDebtsDAO.insert(debt);
+                }
+                //Log.d("Item Menu","Menu: "+R.string.okMenu);
                 break;
             default:break;
 
         }
         return true;
     }
+
+    private Debts checkdata (){
+        String msg = "";
+        //Verificar se a descrição é vazio
+        if(mEditTextDescription.getText().toString().isEmpty()){
+            msg += "* Informe a descrição do débito \n";
+        }
+        //Verificar se o valor é vazio e maior que zero
+        if(mValue.getText().toString().isEmpty()){
+            msg += "Informe a descrição do Valor \n";
+        }else{
+            if(Float.parseFloat(mValue.getText().toString()) <= 0){
+                msg += "Informe um valor maior que 0 \n";
+            }
+
+        }
+        //Verificar se a data é vazia
+        if(mEditTextDataPay.getText().toString().isEmpty()){
+            msg += "Informe a data \n";
+        }
+
+        if(!msg.isEmpty()){
+            //mostrar alerta
+            createDialag(msg);
+        }else{
+            //criar uma instância do Debts
+            Debts debt = new Debts();
+            debt.setDescription(mEditTextDescription.getText().toString());
+            debt.setValue(Float.parseFloat(mValue.getText().toString()));
+            debt.setPaymentDate(mEditTextDataPay.getText().toString());
+            debt.setCategory(mCategoryDAO.getCategory(mSpinnerCategory.getSelectedItem().toString()));
+            if(mTopay.isChecked()){
+                //armazenar no PayDate a mesma data que o PayPayment
+                debt.setPayDate(mEditTextDataPay.getText().toString());
+            }else{
+                debt.setPayDate("");
+
+            }
+            return debt;
+
+        }
+        return null;
+    }
+
+    private void createDialag(String msg){
+        AlertDialog.Builder builder = new AlertDialog.Builder(InsertDebts.this);
+        builder.setTitle("Erro");
+        builder.setMessage(msg);
+        builder.show();
+
+    }
+
+
 }
