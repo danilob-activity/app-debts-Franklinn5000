@@ -1,10 +1,10 @@
 package com.example.danilo.appdebts.adapters;
 
 import android.content.Context;
+import android.database.sqlite.SQLiteDatabase;
 import android.support.annotation.NonNull;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,8 +13,8 @@ import android.widget.TextView;
 
 import com.example.danilo.appdebts.R;
 import com.example.danilo.appdebts.classes.Debts;
-
-import org.w3c.dom.Text;
+import com.example.danilo.appdebts.dao.DebtsDAO;
+import com.example.danilo.appdebts.database.DatabaseHelper;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -39,7 +39,7 @@ public class DebtsAdapter extends RecyclerView.Adapter<DebtsAdapter.ViewHolderDe
 
         View view = layoutInflater.inflate(R.layout.list_view_debts, parent, false);
 
-        ViewHolderDebts holderDebts = new ViewHolderDebts(view);
+        ViewHolderDebts holderDebts = new ViewHolderDebts(view, );
         mDataViews.add(holderDebts);
 
         return holderDebts;
@@ -91,20 +91,22 @@ public class DebtsAdapter extends RecyclerView.Adapter<DebtsAdapter.ViewHolderDe
         public ImageButton mButtonPay;
         public ImageButton mButtonDelete;
         public ConstraintLayout mLayout;
+        public ;
 
 
-        public ViewHolderDebts(View itemView) {
+        public ViewHolderDebts(View itemView, final RecyclerView.Adapter mDebtsAdapter) {
             super(itemView);
             mDescription = itemView.findViewById(R.id.textViewDescription);
             mCategory = itemView.findViewById(R.id.textViewCategory);
-            mDataPay = itemView.findViewById(R.id.textViewPay);
-            mDataPayment =  itemView.findViewById(R.id.textViewPayment);
+            mDataPay = itemView.findViewById(R.id.textviewPaydate);
+            mDataPayment =  itemView.findViewById(R.id.textviewPaydate);
             mButtonPay = itemView.findViewById(R.id.imageButtonPayment);
             mButtonUpdate = itemView.findViewById(R.id.imageButtonUpdate);
             mButtonDelete = itemView.findViewById(R.id.imageButtonDelete);
             mTextPay = itemView.findViewById(R.id.textViewPayString);
             mTextPayment = itemView.findViewById(R.id.textViewPaymentString);
             mLayout = itemView.findViewById(R.id.linearLayout);
+            mDebtsAdapter = itemView.findViewById(R.id.)
 
 
             mButtonPay.setVisibility(View.GONE);
@@ -132,6 +134,23 @@ public class DebtsAdapter extends RecyclerView.Adapter<DebtsAdapter.ViewHolderDe
 
                     }
                     selectedItem = actualItem;
+
+                    mButtonDelete.setOnClickListener(new View.OnClickListener() {
+
+
+                        @Override
+                        public void onClick(View view) {
+                            if(mData.size()>0) {
+                                Debts debt = mData.get(getLayoutPosition());
+                                DatabaseHelper mDataHelper = new DatabaseHelper(mContext);
+                                SQLiteDatabase mConection = mDataHelper.getWritableDatabase();
+                                DebtsDAO debtDAO = new DebtsDAO(mConection);
+                                debtDAO.remove(debt.getId());
+                                mData.remove(getLayoutPosition());
+                                mDebtsAdapter.notifyItemRemoved(getLayoutPosition());
+                            }
+                        }
+                    });
                 }
             });
 

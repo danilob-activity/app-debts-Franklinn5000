@@ -44,6 +44,7 @@ public class InsertDebts extends AppCompatActivity {
     EditText mEditTextDescription;
     EditText mValue;
     Switch mTopay;
+    EditText mDebtsAdapter;
 
     final Calendar myCalendar = Calendar.getInstance();
 
@@ -67,6 +68,7 @@ public class InsertDebts extends AppCompatActivity {
         mEditTextDescription = findViewById(R.id.editTextDescription);
         mValue = findViewById(R.id.Valor);
         mTopay = findViewById(R.id.switchPay);
+        mDebtsAdapter = findViewById(R.id.);
 
 
 

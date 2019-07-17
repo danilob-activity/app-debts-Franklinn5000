@@ -11,9 +11,6 @@ import com.example.danilo.appdebts.database.ScriptDLL;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by danilo on 27/06/19.
- */
 
 public class CategoryDAO {
     private SQLiteDatabase mConnection;
